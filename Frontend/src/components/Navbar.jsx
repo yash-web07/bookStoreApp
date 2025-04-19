@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-
+import { useAuth } from '../context/AuthProvider';
 import Login from '../components/Login';
-
+import Logout from '../components/Logout';
 
 
 function Navbar() {
+  const { authUser } = useAuth(); // now this will work safely
+  console.log(authUser);// should not be undefined if context is set up right
+ 
   const [theme,setTheme]=useState(localStorage.getItem("theme")?localStorage.getItem("theme"):"light")
   const element=document.documentElement;
   useEffect(()=>{
@@ -92,10 +95,14 @@ function Navbar() {
           
           </svg>
         </label>
+        {
+          authUser?<Logout/>:(
         <div>
           <a className="btn btn-sm bg-black text-white px-3 py-2 ml-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer" onClick={()=> document.getElementById("my_modal_3").showModal()}>Login</a>
           <Login />
         </div>
+        )}
+
       </div>
     </>
   )

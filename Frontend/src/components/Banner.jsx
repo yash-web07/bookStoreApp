@@ -1,5 +1,6 @@
 import React from 'react';
-import banner from "../assets/banner.jpg";
+import banner1 from '../assets/banner-removebg-preview.png';
+import { Link } from 'react-router-dom';
 function Banner() {
     return (
         <>
@@ -18,11 +19,11 @@ function Banner() {
                         </label>
                         <div className="validator-hint hidden">Enter valid email address</div>
                     </div>
-                    <button className='btn btn-secondary mt-6'>Secondry</button>
+                    <Link to="/signup" className='btn btn-secondary mt-6'>Get Started</Link>
                 </div>
 
                 <div className="w-full md:w-1/2 order-1 dark:bg-slate-900 dark:text-white">
-                    <img src={banner} className='w-92 h-92' alt='book'></img>
+                    <img src={banner1} className='w-92 h-92' alt='book'></img>
                 </div>
             </div>
         </>
