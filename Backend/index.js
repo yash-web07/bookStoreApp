@@ -8,15 +8,17 @@ import cors from "cors";
 
 const app = express()
 
-// Enable CORS for all origins (or specify the frontend URL)
-app.use(cors({
-  origin: 'https://bookstoreapp-1-1wz8.onrender.com'  // Add your frontend URL here
-}));
+app.use(cors());
 app.use(express.json());
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 const URI = process.env.MongoDBURI;
+
+// Define a root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the Bookstore API');
+});
 
 // connect to mongoDB 
 try{
