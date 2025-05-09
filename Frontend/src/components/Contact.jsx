@@ -19,7 +19,7 @@ function Contact() {
     };
 
     try {
-      const res = await axios.post("http://localhost:4001/contact", userInfo);
+      const res = await axios.post("https://bookstoreapp-backend-768e.onrender.com/contact", userInfo);
       if (res.data) {
         toast.success("Your detail has been sent");
         setTimeout(() => {

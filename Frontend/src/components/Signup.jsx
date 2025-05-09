@@ -7,86 +7,86 @@ import toast from 'react-hot-toast';
 
 
 function Signup() {
-    const location=useLocation();
-    const navigate=useNavigate();
-    const from = location.state?.from?.pathname || "/";
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm()
-    
-      const onSubmit = async (data) => {
-        const userInfo = {
-          fullname:data.fullname,
-          email:data.email,
-          password:data.password
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = async (data) => {
+    const userInfo = {
+      fullname: data.fullname,
+      email: data.email,
+      password: data.password
+    }
+
+    await axios.post("https://bookstoreapp-backend-768e.onrender.com/signup", userInfo)
+      .then((res) => {
+        console.log(res.data)
+        if (res.data) {
+          toast.success('Signup Successfully');
+          navigate(from, { replace: true });
+
         }
-
-        await axios.post("http://localhost:4001/user/signup", userInfo)
-        .then((res)=>{
-          console.log(res.data)
-          if(res.data){
-            toast.success('Signup Successfully');
-            navigate(from,{replace:true});
-            
-          }
-          localStorage.setItem("Users",JSON.stringify(res.data.user));
-        }).catch((err)=>{
-          if(err.response){
-            console.log(err);
-            toast.error("Error: "+err.response.data.message);
-          }
-        })
-      };
+        localStorage.setItem("Users", JSON.stringify(res.data.user));
+      }).catch((err) => {
+        if (err.response) {
+          console.log(err);
+          toast.error("Error: " + err.response.data.message);
+        }
+      })
+  };
   return (
     <>
-    <div className='flex h-screen items-center justify-center '>
-    <div className="w-[400px] border-[2px] rounded-md py-3 px-3">
+      <div className='flex h-screen items-center justify-center '>
+        <div className="w-[400px] border-[2px] rounded-md py-3 px-3">
 
-    <form onSubmit={handleSubmit(onSubmit)} method="dialog">
-      {/* if there is a button in form, it will close the modal */}
-      <Link to='/' className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
+          <form onSubmit={handleSubmit(onSubmit)} method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <Link to='/' className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
 
-    <h3 className="font-bold text-lg">Sign up</h3>
+            <h3 className="font-bold text-lg">Sign up</h3>
 
-    {/* Name input */}
-    <div className='mt-4 space-y-2'>
-      <span>Name</span>
-      <br></br>
-      <input type='text' placeholder='Enter your fullname' className='w-80 px-3 py-1 rounded-md outline-none border-2 border-gray-200' {...register("fullname" ,{required: true})}/>
-      <br/>
-      {errors.fullname && <span className='text-sm text-red-500'>This field is required*</span>}
-    </div>
+            {/* Name input */}
+            <div className='mt-4 space-y-2'>
+              <span>Name</span>
+              <br></br>
+              <input type='text' placeholder='Enter your fullname' className='w-80 px-3 py-1 rounded-md outline-none border-2 border-gray-200' {...register("fullname", { required: true })} />
+              <br />
+              {errors.fullname && <span className='text-sm text-red-500'>This field is required*</span>}
+            </div>
 
-    {/* Email input */}
-    <div className='mt-4 space-y-2'>
-      <span>Email</span>
-      <br></br>
-      <input type='email' placeholder='Enter your email' className='w-80 px-3 py-1 rounded-md outline-none border-2 border-gray-200'{...register("email" ,{required: true})}/>
-      <br/>
-      {errors.email && <span className='text-sm text-red-500'>This field is required*</span>}
-    </div>
+            {/* Email input */}
+            <div className='mt-4 space-y-2'>
+              <span>Email</span>
+              <br></br>
+              <input type='email' placeholder='Enter your email' className='w-80 px-3 py-1 rounded-md outline-none border-2 border-gray-200'{...register("email", { required: true })} />
+              <br />
+              {errors.email && <span className='text-sm text-red-500'>This field is required*</span>}
+            </div>
 
-    {/* Password input */}
-    <div className='mt-4 space-y-2'>
-      <span>Password</span>
-      <br></br>
-      <input type='text' placeholder='Enter your password' className='w-80 px-3 py-1 rounded-md outline-none border-2 border-gray-200'{...register("password" ,{required: true})}/>
-      <br/>
-      {errors.password && <span className='text-sm text-red-500'>This field is required*</span>}
-    </div>
+            {/* Password input */}
+            <div className='mt-4 space-y-2'>
+              <span>Password</span>
+              <br></br>
+              <input type='text' placeholder='Enter your password' className='w-80 px-3 py-1 rounded-md outline-none border-2 border-gray-200'{...register("password", { required: true })} />
+              <br />
+              {errors.password && <span className='text-sm text-red-500'>This field is required*</span>}
+            </div>
 
-    {/* button */}
-    <div className='flex justify-around mt-4 items-center'>
-      <button type='submit' className='bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200'>Signup</button>
-      <p className='text-center'>Have account? <button className='underline text-blue-500 curser-pointer' onClick={()=>{document.getElementById("my_modal_3").showModal()}}>Login</button></p>
-      <Login/>
-    </div>
-    </form>
-  </div>
-</div>
+            {/* button */}
+            <div className='flex justify-around mt-4 items-center'>
+              <button type='submit' className='bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200'>Signup</button>
+              <p className='text-center'>Have account? <button className='underline text-blue-500 curser-pointer' onClick={() => { document.getElementById("my_modal_3").showModal() }}>Login</button></p>
+              <Login />
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   )
 }

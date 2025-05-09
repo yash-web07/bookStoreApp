@@ -12,7 +12,7 @@ function Freebook() {
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get("http://127.0.0.1:4001/book");
+        const res = await axios.get("https://bookstoreapp-backend-768e.onrender.com/book");
         console.log(res.data);
         setBook(res.data);
       } catch (error) {
