@@ -11,7 +11,7 @@ const contactSchema=mongoose.Schema({
     },
     message:{
         type:String,
-        required:false
+        required:true
     }
 })
 
