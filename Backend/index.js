@@ -8,7 +8,10 @@ import cors from "cors";
 
 const app = express()
 
-app.use(cors());
+// Enable CORS for all origins (or specify the frontend URL)
+app.use(cors({
+  origin: 'https://bookstoreapp-1-1wz8.onrender.com'  // Add your frontend URL here
+}));
 app.use(express.json());
 
 dotenv.config();
