@@ -1,35 +1,38 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import bookRoute from "./route/book.route.js";
-import userRoute from "./route/user.route.js";
-import contactRoute from "./route/contact.route.js";
-import cors from "cors";
+import bookRoute from './route/book.route.js';
+import userRoute from './route/user.route.js';
+import contactRoute from './route/contact.route.js';
+import cors from 'cors';
 
-const app = express()
+// Load environment variables
+dotenv.config();
 
+const app = express();
+const PORT = process.env.PORT || 4000;
+const MONGO_URI = process.env.MongoDBURI;
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-dotenv.config();
-const PORT = process.env.PORT || 4000;
-const URI = process.env.MongoDBURI;
-
-// Define a root route
+// Root route
 app.get('/', (req, res) => {
-  res.send('Welcome to the Bookstore API');
+  res.send('📚 Welcome to the Bookstore API');
 });
 
-// connect to mongoDB 
-mongoose.connect(URI)
-  .then(() => console.log('MongoDB connected successfully!'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+// Connect to MongoDB
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('✅ MongoDB connected successfully!'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// defining Route
-app.use("/book",bookRoute)
-app.use("/user",userRoute);
-app.use("/contact",contactRoute);
+// Routes
+app.use('/book', bookRoute);
+app.use('/user', userRoute);
+app.use('/contact', contactRoute);
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`)
-})
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+});
