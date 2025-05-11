@@ -23,9 +23,14 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ MongoDB connected successfully!'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
+mongoose.connect(process.env.MongoDBURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 10000,
+})
+.then(() => console.log('MongoDB connected successfully!'))
+.catch((err) => console.error('MongoDB connection error:', err));
+
 
 // Routes
 app.use('/book', bookRoute);
