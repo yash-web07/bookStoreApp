@@ -10,7 +10,7 @@ const Course = () => {
   useState(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get('https://bookstoreapp-backend-768e.onrender.com/book');
+        const res = await axios.get('https://bookstoreapp-backend-i0ss.onrender.com/book');
         console.log(res.data);
         setBook(res.data);
       } catch (error) {
